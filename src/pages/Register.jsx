@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Header from "../components/Header"; 
+import Footer from "../components/Footer";
 
 function Register() {
   const navigate = useNavigate();
@@ -50,9 +52,11 @@ function Register() {
   };
 
   return (
+     <>
+      <Header />
 <div className="min-h-screen bg-gray-100 flex items-center justify-center px-2 py-2 overflow-auto">
   <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-4">
-    <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Create Your Account</h2>     
+    <h2 className="text-2xl font-bold mb-6 text-center text-black-600">Create Your Account</h2>     
      <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-2xl shadow-md w-full max-w-lg border border-purple-100"
@@ -93,6 +97,8 @@ function Register() {
      
     </div>
      </div>
+     <Footer />
+     </>
   );
   
 }

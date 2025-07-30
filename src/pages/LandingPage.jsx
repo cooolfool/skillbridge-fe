@@ -6,12 +6,11 @@ function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-100 to-pink-50 text-gray-800">
       {/* --- same code you have in App.jsx --- */}
       {/* Navbar */}
-            <nav className="bg-white shadow-md p-4 px-6 flex justify-between items-center sticky top-0 z-50 border-b border-purple-200">
-              <h1 className="text-4xl font-bold text-indigo-700">SkillBridge</h1>
+            <nav className="bg-black shadow-md p-4 px-6 flex justify-between items-center sticky top-0 z-50 border-b border-purple-200">
+              <h1 className="text-4xl font-bold text-[#efff14de]">SkillBridge</h1>
               <div className="space-x-6 text-sm">
-                <a href="#why" className="text-gray-700 hover:text-indigo-600 transition">Why</a>
-                <a href="#how" className="text-gray-700 hover:text-indigo-600 transition">How</a>
-                <a href="#get-started" className="text-gray-700 hover:text-indigo-600 transition">Get Started</a>
+                <a href="#why" className="text-[#efff14de] hover:text-indigo-600 transition">Why</a>
+                <a href="#how" className="text-[#efff14de] hover:text-indigo-600 transition">How</a>
               </div>
             </nav>
       
