@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useFetchProfile from "../hooks/useFetchProfile";
+
 
 const HeaderApplication = () => {
+  const { user } = useFetchProfile();   // Fetch user profile using the custom hook
+//    {console.log("user : " + user)}
+
   return (
+    
     <header className="bg-black shadow-md border-b border-purple-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
@@ -24,10 +30,10 @@ const HeaderApplication = () => {
               to="/home"
               className="text-[#efff14de] hover:text-indigo-600 transition duration-200"
             >
-              Profile
+              {user ? user.name : "Profile"}
             </Link>
             <Link
-  to="/feed"
+  to="/feed"    
   className="text-[#efff14de] hover:text-indigo-600 transition duration-200"
 >
   Feed

@@ -56,7 +56,7 @@ const PublishProjectPage = () => {
       <Header />
     <div className="min-h-screen bg-gradient-to-tr from-indigo-50 via-white to-indigo-100 p-4">
       <div className="max-w-2xl mx-auto bg-white p-6 shadow-lg rounded-md border border-indigo-200">
-        <h2 className="text-2xl font-bold mb-4 text-indigo-700">Publish a New Project</h2>
+        <h2 className="text-2xl font-bold mb-4 text-black-700">Publish a New Project</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}

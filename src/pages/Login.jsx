@@ -23,7 +23,7 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:8080/api/auth/login", formData);
       localStorage.setItem("token", res.data.token);
-      navigate("/home");
+      navigate("/feed");
     } catch (error) {
       console.error("Login failed:", error);
       alert("Invalid credentials or server error");
