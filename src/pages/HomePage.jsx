@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
 import useFetchPostByUser from "../hooks/useFetchPostByUser";
 import ProjectCard from "../components/ProjectCard";
+import EditProfilePage from "./EditProfilePage";
 
 const HomePage = () => {
   const navigate = useNavigate();
-   const { posts, loading } = useFetchPostByUser();
-   {console.log("Fetched posts:", posts.length);}
-   const { user } = useFetchProfile();
+  const { posts, loading } = useFetchPostByUser();
+  {
+    // console.log("Fetched posts:", posts.length);
+  }
+  const { user } = useFetchProfile();
 
   if (!user) {
     return (
@@ -32,7 +34,7 @@ const HomePage = () => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-700">
             <div>
               <span className="text-gray-500 font-semibold">Email:</span>
               <p>{user.email}</p>
@@ -40,68 +42,71 @@ const HomePage = () => {
 
             <div>
               <span className="text-gray-500 font-semibold">Role:</span>
-              <p className="text-black-700">{user.role}</p>
+              <p>{user.role}</p>
             </div>
 
-            {user.bio && (
-              <div className="sm:col-span-2">
-                <span className="text-gray-500 font-semibold">Bio:</span>
-                <p>{user.bio}</p>
-              </div>
-            )}
-
-            {user.skills && (
-              <div className="sm:col-span-2">
-                <span className="text-gray-500 font-semibold">Skills:</span>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {user.skills.split(",").map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-indigo-100 text-black-800 px-2 py-1 rounded-full text-xs font-semibold"
-                    >
-                      {skill.trim()}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {user.gitHub && (
-              <div>
-                <span className="text-gray-500 font-semibold">GitHub:</span>
+            <div>
+             
+              {user.gitHub ? (
                 <a
                   href={user.gitHub}
-                  className="text-blue-600 hover:underline break-all"
+                  className="text-blue-600 hover:underline ml-1"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {user.gitHub}
+                  GitHub
                 </a>
-              </div>
-            )}
-
-            {user.linkedIn && (
-              <div>
-                <span className="text-gray-500 font-semibold">LinkedIn:</span>
+              ) : (
+                <>
+                  <span className="text-gray-500 font-semibold">GitHub:</span>
+                  <span className="ml-1 text-gray-400">Not Provided</span>
+                </>
+              )}
+            </div>
+            <div>
+              {user.linkedIn ? (
                 <a
                   href={user.linkedIn}
-                  className="text-blue-600 hover:underline break-all"
+                  className="text-blue-600 hover:underline ml-1"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {user.linkedIn}
+                  LinkedIn
                 </a>
+              ) : (
+                <>
+                  <span className="text-gray-500 font-semibold">LinkedIn:</span>
+                  <span className="ml-1 text-gray-400">Not Provided</span>
+                </>
+              )}
+            </div>
+
+            <div>
+              <span className="text-gray-500 font-semibold">Bio:</span>
+              <p>{user.bio || "—"}</p>
+            </div>
+
+            <div>
+              <span className="text-gray-500 font-semibold">Skills:</span>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {user.skills?.split(",").map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-indigo-100 text-black-800 px-2 py-1 rounded-full text-xs font-semibold"
+                  >
+                    {skill.trim()}
+                  </span>
+                ))}
               </div>
-            )}
+            </div>
           </div>
-         
 
           <div className="mt-6 flex flex-col sm:flex-row justify-center sm:justify-between gap-4">
             <button
-              onClick={() => navigate("/publish-project")}
+              onClick={() => navigate("/edit-profile")}
               className="bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-10 rounded-lg"
             >
-              Post
+              Edit Profile
             </button>
             <button
               onClick={() => {
@@ -113,30 +118,27 @@ const HomePage = () => {
               Logout
             </button>
           </div>
-          
         </div>
-<div className="flex align-items-center justify-center mt-8">
-  {posts.length === 0 ? (
-    <div className="text-center text-gray-600 text-md mt-20">
-      Post your first project!
-    </div>
-  ) : (
-    <div>
-     <div className="text-center text-md mt-3 text-gray-500 font-semibold">
-      Browse your projects!
-    </div>
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      
-      {posts.map((project, index) => (
-        <div key={index} className="w-[320px]">
-          <ProjectCard project={project} />
+        <div className="flex align-items-center justify-center mt-8">
+          {posts.length === 0 ? (
+            <div className="text-center text-gray-600 text-md mt-20">
+              Post your first project!
+            </div>
+          ) : (
+            <div>
+              <div className="text-center text-md mt-3 text-gray-500 font-semibold">
+                Browse your projects!
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {posts.map((project, index) => (
+                  <div key={index} className="w-[320px]">
+                    <ProjectCard project={project} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      ))}
-    </div>
-    </div>
-  )}
-</div>
-
       </div>
       <Footer />
     </>

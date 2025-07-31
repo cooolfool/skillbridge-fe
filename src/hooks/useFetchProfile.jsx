@@ -15,9 +15,12 @@ const useFetchProfile = () => {
           return;
         }
         const res = await axios.get("http://localhost:8080/api/user", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+          authToken: localStorage.getItem("token"),
+           Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         });
-        {console.log("Fetched user profile:", res.data);}
+        // {console.log("Fetched user profile:", res.data);}
         setUser(res.data);
       } catch (error) {
         console.error("Error fetching profile:", error);

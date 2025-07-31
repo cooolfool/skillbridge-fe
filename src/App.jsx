@@ -1,11 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
 import Home from "./pages/HomePage";
 import PublishProjectPage from "./pages/PublishProjectPage";
 import FeedPage from "./pages/FeedPage";
+import EditProfilePage from "./pages/EditProfilePage";
+import ProjectDetails from "./pages/ProjectDetailsPage"; 
+import EditProject from "./pages/EditProjectPage";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/publish-project" element={<PublishProjectPage />} />
       <Route path="/feed" element={<FeedPage />} />
+      <Route path="/edit-profile" element={<EditProfilePage />} />
+      <Route path="/project/:id" element={<ProjectDetails />} />
+      <Route path="/edit-project/:id" element={<EditProject />} />
 
 
       </Routes>

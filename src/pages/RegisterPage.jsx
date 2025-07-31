@@ -17,7 +17,7 @@ function Register() {
     skills: "",
     github: "",
     linkedin: "",
-    role: "User", // Default role
+    role: "SDE(FULLSTACK)" // Default role, 
   });
 
   const [error, setError] = useState("");
@@ -41,7 +41,7 @@ function Register() {
     try {
       const response = await axios.post("http://localhost:8080/api/auth/register", formData);
       if (response.status === 201 || response.status === 200) {
-        console.log("User registered:", response.data);
+        // console.log("User registered:", response.data);
       // Optionally save token and navigate
        localStorage.setItem("token", response.data.token);
         navigate("/home");
@@ -70,15 +70,18 @@ function Register() {
           <input type="email" name="email" onChange={handleChange} value={formData.email} placeholder="Email" className="input" />
           <input type="password" name="password" onChange={handleChange} value={formData.password} placeholder="Password" className="input" />
           <input type="password" name="confirmPassword" onChange={handleChange} value={formData.confirmPassword} placeholder="Confirm Password" className="input" />
-          <textarea name="bio" onChange={handleChange} value={formData.bio} placeholder="Short Bio" rows="2" className="input" />
+          <textarea name="bio" onChange={handleChange} value={formData.bio} placeholder="Bio" rows="2" className="input" />
           <input name="skills" onChange={handleChange} value={formData.skills} placeholder="Skills (comma-separated)" className="input" />
           <input name="github" onChange={handleChange} value={formData.github} placeholder="GitHub Profile (optional)" className="input" />
           <input name="linkedin" onChange={handleChange} value={formData.linkedin} placeholder="LinkedIn Profile (optional)" className="input" />
 
           <select name="role" onChange={handleChange} value={formData.role} className="input">
-            <option value="User">User</option>
-            <option value="Mentor">Mentor</option>
-            <option value="Admin">Admin</option>
+            <option value="SDE(BE)">SDE(BE)</option>
+            <option value="SDE(FE)">SDE(FE)</option>
+            <option value="SDE(FULLSTACK)">SDE(FULLSTACK)</option>
+            <option value="ARCHITECT">ARCHITECT</option>
+            <option value="DEVOPS">DEVOPS</option>
+            <option value="RECRUITER">RECRUITER</option>
           </select>
 
           <button

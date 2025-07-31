@@ -17,6 +17,7 @@ const useFetchPostByUser = () => {
           navigate("/login");
           return;
         }
+        // console.log("Fetched TOken", token);
         const res = await axios.get("http://localhost:8080/project", {
            headers: {
           authToken: localStorage.getItem("token"),
@@ -24,9 +25,9 @@ const useFetchPostByUser = () => {
         },
         });
         setPosts(res.data);
-        {console.log("Fetched posts by user:", user.name);}
-      } catch (error) {
-        console.error("Error fetching posts:", error);
+        // {console.log("Fetched posts by user:", user.name);}
+       } catch (error) {
+        // console.error("Error fetching posts:", error);
         alert("Session expired. Please login again.");
         navigate("/login");
       } finally {
