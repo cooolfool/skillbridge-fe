@@ -4,6 +4,7 @@ import useFetchProfile from "../hooks/useFetchProfile";
 import axios from "axios";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const EditProfilePage = () => {
   const { user } = useFetchProfile();
@@ -57,7 +58,7 @@ const EditProfilePage = () => {
       linkedIn: formData.linkedIn  
     };
 
-    await axios.post("http://localhost:8080/api/user", requestBody, {
+    await axios.post(`${baseUrl}/user`, requestBody, {
       headers: {
           authToken: localStorage.getItem("token"),
            Authorization: `Bearer ${localStorage.getItem("token")}`

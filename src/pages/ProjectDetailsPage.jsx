@@ -5,6 +5,7 @@ import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import { Link } from "react-router-dom";
 import useFetchProfile from "../hooks/useFetchProfile";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const ProjectDetails = () => {
     const fetchProject = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:8080/project/${id}`, {
+        const res = await axios.get(`${baseUrl}/project/${id}`, {
           headers: {
             authToken: token,
             Authorization: `Bearer ${token}`,

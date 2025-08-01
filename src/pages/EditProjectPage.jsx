@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const EditProject = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const EditProject = () => {
     const fetchProject = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:8080/project/${id}`, {
+        const res = await axios.get(`${baseUrl}/project/${id}`, {
          headers: {
           authToken: localStorage.getItem("token"),
            Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -50,8 +51,7 @@ const EditProject = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post(
-        "http://localhost:8080/project/edit",
+      const res = await axios.post(`${baseUrl}/project/edit`,
         project,
         {
           headers: {

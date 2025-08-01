@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const useFetchPostsForFeed = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const useFetchPostsForFeed = () => {
           navigate("/login");
           return;
         }
-        const res = await axios.get("http://localhost:8080/project/feed", {
+        const res = await axios.get(`${baseUrl}/project/feed`, {
          headers: {
           authToken: localStorage.getItem("token"),
            Authorization: `Bearer ${localStorage.getItem("token")}`

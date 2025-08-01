@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useFetchProfile from "./useFetchProfile";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const useFetchPostByUser = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const useFetchPostByUser = () => {
           return;
         }
         // console.log("Fetched TOken", token);
-        const res = await axios.get("http://localhost:8080/project", {
+        const res = await axios.get(`${baseUrl}/project`, {
            headers: {
           authToken: localStorage.getItem("token"),
            Authorization: `Bearer ${localStorage.getItem("token")}`

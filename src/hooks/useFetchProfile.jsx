@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const useFetchProfile = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const useFetchProfile = () => {
           navigate("/login");
           return;
         }
-        const res = await axios.get("http://localhost:8080/api/user", {
+        const res = await axios.get(`${baseUrl}/api/user`, {
           headers: {
           authToken: localStorage.getItem("token"),
            Authorization: `Bearer ${localStorage.getItem("token")}`

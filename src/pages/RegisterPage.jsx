@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Header from "../components/Header"; 
 import Footer from "../components/Footer";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 function Register() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/register", formData);
+      const response = await axios.post(`${baseUrl}/api/auth/register`, formData);
       if (response.status === 201 || response.status === 200) {
         // console.log("User registered:", response.data);
       // Optionally save token and navigate
