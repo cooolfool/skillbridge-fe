@@ -10,10 +10,31 @@ import EditProfilePage from "./EditProfilePage";
 const HomePage = () => {
   const navigate = useNavigate();
   const { posts, loading } = useFetchPostByUser();
-  {
-    // console.log("Fetched posts:", posts.length);
+  const { user, loading: profileLoading, error: profileError } = useFetchProfile();
+
+  if (profileLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-blue-50">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-indigo-600 border-solid"></div>
+      </div>
+    );
   }
-  const { user } = useFetchProfile();
+
+  if (profileError) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-blue-50">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{profileError}</p>
+          <button 
+            onClick={() => navigate("/login")}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (

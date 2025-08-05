@@ -11,6 +11,8 @@ const Login = () => {
     email: "",
     password: ""
   });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -21,13 +23,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
+    
     try {
       const res = await axios.post(`${baseUrl}/api/auth/login`, formData);
       localStorage.setItem("token", res.data.token);
       navigate("/feed");
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Invalid credentials or server error");
+      setError(error.response?.data?.message || "Invalid credentials or server error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -37,6 +44,11 @@ const Login = () => {
       <div className="min-h-screen flex items-center justify-center bg-blue-50">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full border border-indigo-100">
           <h2 className="text-2xl font-bold text-black-600 mb-4 text-center">Login to SkillBridge</h2>
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
           <form className="space-y-4" onSubmit={handleSubmit}>
             <input
               type="email"
@@ -45,7 +57,8 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              disabled={isLoading}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:opacity-50"
             />
             <input
               type="password"
@@ -54,13 +67,15 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              disabled={isLoading}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:opacity-50"
             />
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition"
+              disabled={isLoading}
+              className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Login
+              {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
           <p className="text-sm text-gray-500 mt-4 text-center">

@@ -9,14 +9,33 @@ import ProjectCard from "../components/ProjectCard";
 import useFetchPostsForFeed from "../hooks/useFetchPostsForFeed";
 
 const FeedPage = () => {
-  const { posts, loading } = useFetchPostsForFeed();
+  const { posts, loading, error } = useFetchPostsForFeed();
   const navigate = useNavigate();
-  const { user } = useFetchProfile();
+  const { user, loading: profileLoading, error: profileError } = useFetchProfile();
 
-  if (loading) {
+  if (loading || profileLoading) {
     return (
-      <div className="text-center mt-16 text-indigo-600 text-lg font-medium animate-pulse">
-        Loading feed...
+      <div className="flex items-center justify-center h-screen bg-blue-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-indigo-600 border-solid mx-auto mb-4"></div>
+          <p className="text-indigo-600 text-lg font-medium">Loading feed...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || profileError) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-blue-50">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error || profileError}</p>
+          <button 
+            onClick={() => navigate("/login")}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+          >
+            Go to Login
+          </button>
+        </div>
       </div>
     );
   }
