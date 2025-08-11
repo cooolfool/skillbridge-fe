@@ -9,6 +9,7 @@ import FeedPage from "./pages/FeedPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import ProjectDetails from "./pages/ProjectDetailsPage"; 
 import EditProject from "./pages/EditProjectPage";
+import PublicProfilePage from "./pages/PublicProfilePage";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
       <Route path="/edit-profile" element={<EditProfilePage />} />
       <Route path="/project/:id" element={<ProjectDetails />} />
       <Route path="/edit-project/:id" element={<EditProject />} />
-
+      <Route path="/profile/:id" element={<PublicProfilePage />} />
 
       </Routes>
     </Router>

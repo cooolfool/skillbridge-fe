@@ -38,6 +38,9 @@ const HeaderApplication = () => {
 >
   Feed
 </Link>
+<Link to="/profile" className="hover:text-blue-500">
+  Profile
+</Link>
 
           </nav>
         </div>

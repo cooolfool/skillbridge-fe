@@ -65,9 +65,14 @@ const ProjectDetails = () => {
           </div>
 
           <div>
-            <p className="font-semibold text-gray-500">Posted By:</p>
-            <p>{project.createdBy?.name}</p>
-          </div>
+  <p className="font-semibold text-gray-500">Posted By:</p>
+  <Link
+    to={`/profile/${project.createdBy?.id}`}
+    className="text-indigo-600 hover:underline"
+  >
+    {project.createdBy?.name}
+  </Link>
+</div>
 
           <div>
             <p className="font-semibold text-gray-500">Repository:</p>
