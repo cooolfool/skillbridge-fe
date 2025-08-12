@@ -57,7 +57,7 @@ const EditProfilePage = () => {
         linkedIn: formData.linkedIn,
       };
 
-      await axios.post(`${baseUrl}/user`, requestBody, {
+      await axios.post(`${baseUrl}/api/user`, requestBody, {
         headers: {
           authToken: localStorage.getItem("token"),
           Authorization: `Bearer ${localStorage.getItem("token")}`,
