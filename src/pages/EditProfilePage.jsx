@@ -123,8 +123,7 @@ const EditProfilePage = () => {
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition"
-          >
+className="btn btn-primary"           >
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </form>
