@@ -1,12 +1,10 @@
-
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
-import ProjectCard from "../components/ProjectCard";
 import useFetchPostsForFeed from "../hooks/useFetchPostsForFeed";
+import ProjectCard from "../components/ProjectCard";
 
 const FeedPage = () => {
   const { posts, loading, error } = useFetchPostsForFeed();
@@ -31,7 +29,7 @@ const FeedPage = () => {
           <p className="text-red-600 mb-4">{error || profileError}</p>
           <button 
             onClick={() => navigate("/login")}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+            className="btn btn-primary"
           >
             Go to Login
           </button>
@@ -43,10 +41,10 @@ const FeedPage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-6">
+      <div className="min-h-screen bg-app-gradient p-6">
         <div className="max-w-6xl mx-auto">
           {user && (
-            <h2 className="text-3xl font-semibold text-black-800 mb-6">
+            <h2 className="text-3xl font-semibold text-black mb-6">
               Hi {user.name}, Explore Projects
             </h2>
           )}
@@ -54,9 +52,9 @@ const FeedPage = () => {
           <div className="flex justify-end mb-6">
             <button
               onClick={() => navigate("/publish-project")}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow-md transition-all duration-200"
+              className="btn btn-primary"
             >
-              + Post a Project
+               Post a Project
             </button>
           </div>
 
@@ -65,11 +63,16 @@ const FeedPage = () => {
               No projects found. Be the first to post!
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((project, index) => (
-                <ProjectCard key={index} project={project} />
-              ))}
-            </div>
+           <div
+  className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2"
+  style={{ scrollbarWidth: "thin" }} // for Firefox thinner scrollbar
+>
+  {posts.map((project, index) => (
+    <div key={index} className="w-full">
+      <ProjectCard project={project} />
+    </div>
+  ))}
+</div>
           )}
         </div>
       </div>

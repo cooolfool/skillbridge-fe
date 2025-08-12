@@ -1,5 +1,3 @@
-
-// src/pages/PublishProject.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -35,6 +33,7 @@ const PublishProject = () => {
       }
     } catch (error) {
       console.error("Error publishing project:", error);
+      alert("Failed to publish project. Please try again.");
     }
   };
 
@@ -42,48 +41,64 @@ const PublishProject = () => {
     <>
       <Header />
       <main className="max-w-3xl mx-auto px-6 py-8 bg-white shadow-lg rounded-xl mt-8 mb-8 border border-indigo-100">
-        <h2 className="text-2xl font-bold text-black-700 mb-6">Publish Project</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 text-sm text-gray-700">
+        <h2 className="text-2xl font-bold text-black-700 mb-6 text-center">
+          Publish Project
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 gap-4 text-sm text-gray-700"
+        >
+          <label className="font-semibold" htmlFor="title">Project Title</label>
           <input
             type="text"
+            id="title"
             name="title"
             placeholder="Project Title"
             value={project.title}
             onChange={handleChange}
-            className="border p-3 rounded"
+            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+
+          <label className="font-semibold" htmlFor="description">Project Description</label>
           <textarea
+            id="description"
             name="description"
             placeholder="Project Description"
             value={project.description}
             onChange={handleChange}
-            className="border p-3 rounded"
+            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             rows={4}
             required
           />
+
+          <label className="font-semibold" htmlFor="tags">Tags (comma separated)</label>
           <input
             type="text"
+            id="tags"
             name="tags"
             placeholder="Tags (comma separated)"
             value={project.tags}
             onChange={handleChange}
-            className="border p-3 rounded"
+            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+
+          <label className="font-semibold" htmlFor="repoUrl">Repository URL</label>
           <input
             type="text"
+            id="repoUrl"
             name="repoUrl"
             placeholder="Repository URL"
             value={project.repoUrl}
             onChange={handleChange}
-            className="border p-3 rounded"
+            className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
+
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-md transition"
-          >
+className="btn btn-primary"          >
             Publish Project
           </button>
         </form>

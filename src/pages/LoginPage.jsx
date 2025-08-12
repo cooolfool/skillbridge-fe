@@ -41,9 +41,14 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen flex items-center justify-center bg-blue-50">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full border border-indigo-100">
-          <h2 className="text-2xl font-bold text-black-600 mb-4 text-center">Login to SkillBridge</h2>
+      <div className="min-h-screen flex items-center justify-center bg-blue-50 px-4">
+        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full border border-indigo-100">
+        <h2 className="text-2xl font-extrabold mb-6 text-center tracking-wide drop-shadow-md">
+  Login to{" "}
+  <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+    SkillBridge
+  </span>
+</h2>
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
               {error}
@@ -73,8 +78,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"            >
               {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
@@ -97,4 +101,3 @@ const Login = () => {
 };
 
 export default Login;
-

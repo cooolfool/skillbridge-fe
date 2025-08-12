@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base typography & body styling */
+body {
+  @apply text-secondary font-sans min-h-screen;
+  background: linear-gradient(135deg, #f8fafc, #e0f2fe, #f3e8ff);
+  background-attachment: fixed;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-secondary;
+}
+
+h1 { @apply text-3xl; }
+h2 { @apply text-2xl; }
+h3 { @apply text-xl; }
+
+/* Links */
+a {
+  @apply text-primary;
+}
+
+a:not(.btn):not(.nav-link):not(.no-underline) {
+  @apply hover:underline;
+}
+/* Buttons */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium shadow-card transition-colors duration-200 ease-in-out cursor-pointer;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:bg-gray-800;
+}
+
+/* Add these for your green and red buttons to match your HomePage */
+.btn-success {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+.btn-danger {
+  @apply bg-pink-600 text-white hover:bg-pink-700;
+}
+/* Cards */
+.card {
+  @apply bg-white rounded-2xl shadow-lg p-6;
+}
+
+/* Navigation Links */
+.nav-link {
+  @apply text-[#efff14de] hover:text-indigo-600 transition-colors duration-200;
+}
+
+/* Footer */
+.footer {
+  @apply bg-gradient-to-br from-white to-purple-50 p-6 text-sm text-gray-700 border-t border-purple-100;
+}
+
+.footer-title {
+  @apply text-2xl font-semibold mb-2;
+}
+
+.footer-highlight {
+  @apply font-medium text-purple-700;
+}
+
+.footer-list-item {
+  @apply font-semibold text-indigo-600;
+}
+
+.footer-copy {
+  @apply text-center mt-10 text-gray-500 text-xs;
+}
+
+/* Background gradients */
+.bg-app-gradient {
+  background: linear-gradient(to top right, #e0f2fe, #ffffff, #dbeafe);
+}
+
+.bg-app-gradient-alt {
+  background: linear-gradient(135deg, #dbeafe 0%, #fef3c7 100%);
+}
+
+

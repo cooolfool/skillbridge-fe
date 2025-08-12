@@ -1,11 +1,9 @@
-
 import { useNavigate } from "react-router-dom";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
 import useFetchPostByUser from "../hooks/useFetchPostByUser";
 import ProjectCard from "../components/ProjectCard";
-import EditProfilePage from "./EditProfilePage";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -14,7 +12,7 @@ const HomePage = () => {
 
   if (profileLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-blue-50">
+      <div className="flex items-center justify-center h-screen bg-app-gradient">
         <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-indigo-600 border-solid"></div>
       </div>
     );
@@ -22,12 +20,12 @@ const HomePage = () => {
 
   if (profileError) {
     return (
-      <div className="flex items-center justify-center h-screen bg-blue-50">
+      <div className="flex items-center justify-center h-screen bg-app-gradient">
         <div className="text-center">
           <p className="text-red-600 mb-4">{profileError}</p>
-          <button 
+          <button
             onClick={() => navigate("/login")}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+            className="btn btn-primary"
           >
             Go to Login
           </button>
@@ -38,7 +36,7 @@ const HomePage = () => {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center h-screen bg-blue-50">
+      <div className="flex items-center justify-center h-screen bg-app-gradient">
         <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-indigo-600 border-solid"></div>
       </div>
     );
@@ -47,8 +45,8 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gradient-to-tr from-blue-50 via-white to-blue-100">
-        <div className="max-w-xl mx-auto my-2 bg-white rounded-xl shadow-md border border-indigo-200 p-6 ">
+      <div className="min-h-screen bg-app-gradient px-4 py-8">
+        <div className="max-w-xl mx-auto my-2 bg-white rounded-xl shadow-md border border-indigo-200 p-6">
           <div className="text-center mb-4">
             <h1 className="text-2xl font-bold text-black-700">
               Welcome, {user.name}!
@@ -67,7 +65,6 @@ const HomePage = () => {
             </div>
 
             <div>
-             
               {user.gitHub ? (
                 <a
                   href={user.gitHub}
@@ -125,7 +122,7 @@ const HomePage = () => {
           <div className="mt-6 flex flex-col sm:flex-row justify-center sm:justify-between gap-4">
             <button
               onClick={() => navigate("/edit-profile")}
-              className="bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-10 rounded-lg"
+              className="btn btn-primary"
             >
               Edit Profile
             </button>
@@ -134,23 +131,24 @@ const HomePage = () => {
                 localStorage.removeItem("token");
                 navigate("/login");
               }}
-              className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-2 px-8 rounded-lg space-x-8"
+              className="btn btn-danger"
             >
               Logout
             </button>
           </div>
         </div>
-        <div className="flex align-items-center justify-center mt-8">
+
+        <div className="flex justify-center mt-8">
           {posts.length === 0 ? (
             <div className="text-center text-gray-600 text-md mt-20">
               Post your first project!
             </div>
           ) : (
-            <div>
+            <div className="max-w-6xl mx-auto">
               <div className="text-center text-md mt-3 text-gray-500 font-semibold">
                 Browse your projects!
               </div>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-center mt-4">
                 {posts.map((project, index) => (
                   <div key={index} className="w-[320px]">
                     <ProjectCard project={project} />

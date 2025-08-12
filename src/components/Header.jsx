@@ -3,33 +3,23 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="bg-black shadow-md border-b border-purple-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo + Brand */}
-          <Link to="/" className="flex items-center space-x-2">
-            {/* <img
-              src="/skillbridge-high-resolution-logo.png"
-              alt="SkillBridge Logo"
-              className="h-10 w-10 object-contain"
-            /> */}
-            <span className="text-2xl md:text-3xl font-medium text-[#efff14de] tracking-tight">
-              SkillBridge
-            </span>
-          </Link>
+  <header className="bg-gradient-to-r from-purple-900 to-indigo-900 shadow-md border-b border-purple-500 sticky top-0 z-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-between items-center py-4">
+      <Link to="/" className="nav-link">
+        <span className="text-2xl md:text-3xl font-medium text-yellow-400 tracking-tight">
+          SkillBridge
+        </span>
+      </Link>
+     <nav className="space-x-6 text-sm md:text-base font-medium hidden sm:flex">
+  <a href="#why" className="nav-link">Why</a>
+  <a href="#how" className="nav-link">How</a>
+</nav>
+    </div>
+  </div>
+</header>
 
-          {/* Navigation */}
-          <nav className="space-x-6 text-sm md:text-base font-medium hidden sm:flex">
-            <a href="#why" className="text-[#efff14de] hover:text-indigo-600 transition duration-200">
-              Why
-            </a>
-            <a href="#how" className="text-[#efff14de] hover:text-indigo-600 transition duration-200">
-              How
-            </a>
-          </nav>
-        </div>
-      </div>
-    </header>
+
   );
 };
 

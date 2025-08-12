@@ -1,47 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useFetchProfile from "../hooks/useFetchProfile";
 
-
 const HeaderApplication = () => {
-  const { user } = useFetchProfile();   // Fetch user profile using the custom hook
-//    {console.log("user : " + user)}
+  const { user } = useFetchProfile();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
-    
-    <header className="bg-black shadow-md border-b border-purple-200 sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-purple-900 to-indigo-900 shadow-md border-b border-purple-500 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo + Brand */}
-          <Link to="/" className="flex items-center space-x-2">
-            {/* <img
-              src="/skillbridge-high-resolution-logo.png"
-              alt="SkillBridge Logo"
-              className="h-10 w-10 object-contain"
-            /> */}
-            <span className="text-2xl md:text-3xl font-medium text-[#efff14de] tracking-tight">
+          <Link to="/feed" className="nav-link">
+            <span className="text-2xl md:text-3xl font-medium text-yellow-400 tracking-tight">
               SkillBridge
             </span>
           </Link>
 
           {/* Navigation */}
-          <nav className="space-x-6 text-sm md:text-base font-medium hidden sm:flex">
-            <Link
-              to="/home"
-              className="text-[#efff14de] hover:text-indigo-600 transition duration-200"
-            >
+          <nav className="space-x-6 text-sm md:text-base font-medium hidden sm:flex items-center">
+            <Link to="/home" className="nav-link">
               {user ? user.name : "Profile"}
             </Link>
-            <Link
-  to="/feed"    
-  className="text-[#efff14de] hover:text-indigo-600 transition duration-200"
->
-  Feed
-</Link>
-<Link to="/profile" className="hover:text-blue-500">
-  Profile
-</Link>
-
+            <Link to="/feed" className="nav-link">
+              Feed
+            </Link>
+            {/* Logout button */}
+            <button
+              onClick={handleLogout}
+               className="nav-link"
+            >
+              Logout
+            </button>
           </nav>
         </div>
       </div>

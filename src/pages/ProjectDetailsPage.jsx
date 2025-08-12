@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
-import { Link } from "react-router-dom";
 import useFetchProfile from "../hooks/useFetchProfile";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -48,16 +47,14 @@ const ProjectDetails = () => {
 
       <main className="max-w-4xl mx-auto px-6 py-8 bg-white shadow-lg rounded-xl mt-8 mb-8 border border-indigo-100">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-black-700 mb-4">
-          {project.title}
-        </h1>
+        <h1 className="text-3xl font-bold text-black-700 mb-4">{project.title}</h1>
 
         {/* Description */}
         <p className="text-gray-800 text-base leading-relaxed mb-8 whitespace-pre-line">
           {project.description}
         </p>
 
-        {/* Grid Section for Meta Info */}
+        {/* Metadata Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-800">
           <div>
             <p className="font-semibold text-gray-500">Posted On:</p>
@@ -65,14 +62,14 @@ const ProjectDetails = () => {
           </div>
 
           <div>
-  <p className="font-semibold text-gray-500">Posted By:</p>
-  <Link
-    to={`/profile/${project.createdBy?.id}`}
-    className="text-indigo-600 hover:underline"
-  >
-    {project.createdBy?.name}
-  </Link>
-</div>
+            <p className="font-semibold text-gray-500">Posted By:</p>
+            <Link
+              to={`/profile/${project.createdBy?.id}`}
+              className="text-indigo-600 hover:underline"
+            >
+              {project.createdBy?.name}
+            </Link>
+          </div>
 
           <div>
             <p className="font-semibold text-gray-500">Repository:</p>
@@ -114,13 +111,12 @@ const ProjectDetails = () => {
           </div>
         </div>
 
-        {/* Edit Button */}
+        {/* Edit Button (only for owner) */}
         {user?.id === project.createdBy?.id && (
           <div className="flex justify-end mt-6">
             <Link
               to={`/edit-project/${project.id}`}
-              className="text-sm text-white bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg shadow transition-all"
-            >
+className="btn btn-primary"            >
               Edit Project
             </Link>
           </div>
