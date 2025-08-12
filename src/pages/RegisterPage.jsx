@@ -14,8 +14,8 @@ function Register() {
     confirmPassword: "",
     bio: "",
     skills: "",
-    github: "",
-    linkedin: "",
+    gitHub: "",
+    linkedIn: "",
     role: "SDE(FULLSTACK)"
   });
 
@@ -131,17 +131,17 @@ function Register() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:opacity-50"
             />
             <input
-              name="github"
+              name="gitHub"
               onChange={handleChange}
-              value={formData.github}
+              value={formData.gitHub}
               placeholder="GitHub Profile (optional)"
               disabled={isLoading}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:opacity-50"
             />
             <input
-              name="linkedin"
+              name="linkedIn"
               onChange={handleChange}
-              value={formData.linkedin}
+              value={formData.linkedIn}
               placeholder="LinkedIn Profile (optional)"
               disabled={isLoading}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 disabled:opacity-50"
