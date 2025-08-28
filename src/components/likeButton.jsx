@@ -1,8 +1,30 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clickable = true }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(initialCount);
 
-  // ... your existing useEffect to fetch likes
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await axios.get(
+          `${baseUrl}/${entityType}s/${entityId}/likes/status`,
+          { headers: { authToken: token, Authorization: `Bearer ${token}` } }
+        );
+        setLiked(res.data);
+      } catch (err) {
+        console.error("Error fetching like status:", err);
+      }
+    };
+
+    fetchStatus();
+  }, [entityId, entityType]);
+
 
   const toggleLike = async () => {
     if (!clickable) return; // ignore clicks if not clickable
@@ -45,3 +67,5 @@ const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clicka
     </div>
   );
 };
+
+export default LikeButton;

@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
-import LikeButton from "../components/LikeButton";
+import LikeButton from "../components/likeButton";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const ProjectDetails = () => {

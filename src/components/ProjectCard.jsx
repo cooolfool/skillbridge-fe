@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LikeButton from "./LikeButton";
+import LikeButton from "./likeButton";
 
 const ProjectCard = ({ project }) => {
   return (
