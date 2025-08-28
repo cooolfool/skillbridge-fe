@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
+import LikeButton from "../components/LikeButton";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const ProjectDetails = () => {
@@ -63,6 +64,7 @@ const ProjectDetails = () => {
 
           <div>
             <p className="font-semibold text-gray-500">Posted By:</p>
+            {console.log("project created  : " + project.createdBy)}
             <Link
               to={`/profile/${project.createdBy?.id}`}
               className="text-indigo-600 hover:underline"
@@ -111,6 +113,14 @@ const ProjectDetails = () => {
           </div>
         </div>
 
+<div>
+  <p className="font-semibold text-gray-500">Likes:</p>
+  <LikeButton
+    entityId={project.id}
+    entityType="project"
+    initialCount={project.likesCount || 0} // <-- pass backend count
+  />
+</div>
         {/* Edit Button (only for owner) */}
         {user?.id === project.createdBy?.id && (
           <div className="flex justify-end mt-6">
