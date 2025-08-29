@@ -40,8 +40,9 @@ const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clicka
       : `${baseUrl}/${entityType}s/${entityId}/like`;
 
     try {
-      await axios.post(url, null, {
+      await axios.post(url, {}, {
         headers: {
+           "Content-Type": "application/json",
           authToken: token,
           Authorization: `Bearer ${token}`,
         }
