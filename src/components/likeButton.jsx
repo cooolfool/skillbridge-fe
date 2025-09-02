@@ -16,6 +16,7 @@ const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clicka
           `${baseUrl}/${entityType}s/${entityId}/likes/status`,
           { headers: { authToken: token, Authorization: `Bearer ${token}` } }
         );
+        console.log("Like status fetched:", res.data);
         setLiked(res.data);
       } catch (err) {
         console.error("Error fetching like status:", err);
@@ -34,19 +35,22 @@ const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clicka
       alert("You must be logged in to like.");
       return;
     }
-
+    console.log("Toggling like status. Currently liked:", liked);
     const url = liked
       ? `${baseUrl}/${entityType}s/${entityId}/unlike`
       : `${baseUrl}/${entityType}s/${entityId}/like`;
+      console.log("Like toggle URL:", url);
 
     try {
-      await axios.post(url, {}, {
+     const postRes = await axios.post(url, {}, {
         headers: {
            "Content-Type": "application/json",
           authToken: token,
           Authorization: `Bearer ${token}`,
         }
       });
+      console.log("Like response:", postRes.data);
+      console.log("Like status toggled successfully");
       setLiked(!liked);
       setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
     } catch (err) {
