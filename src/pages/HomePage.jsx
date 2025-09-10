@@ -137,16 +137,34 @@ const HomePage = () => {
             </button>
           </div>
         </div>
+       
 
         <div className="flex justify-center mt-8">
           {posts.length === 0 ? (
             <div className="text-center text-gray-600 text-md mt-20">
               Post your first project!
+               <div className="flex justify-center mt-6">
+            <button
+              onClick={() => navigate("/publish-project")}
+              className="btn btn-primary"
+            >
+               Post a Project
+            </button>
+          </div>
             </div>
+            
           ) : (
             <div className="max-w-6xl mx-auto">
               <div className="text-center text-md mt-3 text-gray-500 font-semibold">
                 Browse your projects!
+                 <div className="flex justify-center mt-6">
+            <button
+              onClick={() => navigate("/publish-project")}
+              className="btn btn-primary"
+            >
+               Post a Project
+            </button>
+          </div>
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-center mt-4">
                 {posts.map((project, index) => (
