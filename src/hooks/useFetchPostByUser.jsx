@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import useFetchProfile from "./useFetchProfile";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const useFetchPostByUser = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useFetchProfile();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,7 +26,7 @@ const useFetchPostByUser = () => {
         setPosts(res.data);
         // {console.log("Fetched posts by user:", user.name);}
        } catch (error) {
-        // console.error("Error fetching posts:", error);
+         console.error("Error fetching posts:", error);
         alert("Session expired. Please login again.");
         navigate("/login");
       } finally {
