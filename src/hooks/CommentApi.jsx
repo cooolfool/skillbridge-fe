@@ -1,60 +1,66 @@
 import axios from "axios";
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export const fetchComments = async (projectId) => {
-   const token = localStorage.getItem("token");
-  if (!token) {
-    throw new Error("No token, user not logged in");
-  }
-  const res = await axios.get(`${baseUrl}/api/comments/project/${projectId}`, {
-   headers: {
-          authToken: localStorage.getItem("token"),
-           Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-  });
-  return res.data;
-};
 
-export const addComment = async (commentDto,user) => {
+const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
+
   if (!token) {
-    throw new Error("No token, user not logged in");
+    throw new Error("User not authenticated");
   }
-  const payload= { ...commentDto, user };
-  console.log("In Comment API",commentDto,user);
-  const res = await axios.post(`${baseUrl}/api/comments`, payload, {
-     headers: {
-          authToken: localStorage.getItem("token"),
-           Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
+
+  return {
+    authToken: token,
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+
+const api = axios.create({
+  baseURL: baseUrl,
+});
+
+// 🔹 Fetch comments
+export const fetchComments = async (projectId) => {
+  if (!projectId || isNaN(projectId)) {
+    throw new Error("Invalid projectId");
+  }
+
+  const res = await api.get(`/api/comments/project/${projectId}`, {
+    headers: getAuthHeaders(),
   });
+
   return res.data;
 };
 
+// 🔹 Add comment
+export const addComment = async (commentDto) => {
+  const res = await api.post(`/api/comments`, commentDto, {
+    headers: getAuthHeaders(),
+  });
+
+  return res.data;
+};
+
+// 🔹 Edit comment
 export const editComment = async (commentDto) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    throw new Error("No token, user not logged in");
-  }
-  const res = await axios.put(`${baseUrl}/api/comments`, commentDto, {
-    headers: {
-          authToken: localStorage.getItem("token"),
-           Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
+  const res = await api.put(`/api/comments`, commentDto, {
+    headers: getAuthHeaders(),
   });
+
   return res.data;
 };
 
+// 🔹 Delete comment
 export const deleteComment = async (commentId) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    throw new Error("No token, user not logged in");
+  if (!commentId) {
+    throw new Error("Invalid commentId");
   }
-  const res = await axios.delete(`${baseUrl}/api/comments/${commentId}`, {
-   headers: {
-          authToken: localStorage.getItem("token"),
-           Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
+
+  const res = await api.delete(`/api/comments/${commentId}`, {
+    headers: getAuthHeaders(),
   });
+
   return res.data;
 };
