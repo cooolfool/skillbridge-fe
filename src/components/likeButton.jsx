@@ -1,76 +1,46 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+import React, { useState } from "react";
+import api from "../api/api";
 
-const LikeButton = ({ entityId, entityType = "project", initialCount = 0, clickable = true }) => {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(initialCount);
+const LikeButton = ({
+entityId,
+entityType = "project",
+initialCount = 0,
+initialLiked = false,
+clickable = true
+}) => {
 
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
+const [liked, setLiked] = useState(initialLiked);
+const [likeCount, setLikeCount] = useState(initialCount);
+const [loading, setLoading] = useState(false);
 
-        const res = await axios.get(
-          `${baseUrl}/${entityType}s/${entityId}/likes/status`,
-          { headers: { authToken: token, Authorization: `Bearer ${token}` } }
-        );
-        console.log("Like status fetched:", res.data);
-        setLiked(res.data);
-      } catch (err) {
-        console.error("Error fetching like status:", err);
-      }
-    };
+const handleLike = async () => {
+  if (!clickable || loading) return;
 
-    fetchStatus();
-  }, [entityId, entityType]);
+  setLoading(true);
 
+  try {
+    const res = await api.post(`/${entityType}s/${entityId}/like-toggle`);
 
-  const toggleLike = async () => {
-    if (!clickable) return; // ignore clicks if not clickable
+    setLiked(res.data.liked);
+    setLikeCount(res.data.likesCount);
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("You must be logged in to like.");
-      return;
-    }
-    console.log("Toggling like status. Currently liked:", liked);
-    const url = liked
-      ? `${baseUrl}/${entityType}s/${entityId}/unlike`
-      : `${baseUrl}/${entityType}s/${entityId}/like`;
-      console.log("Like toggle URL:", url);
+  } catch (err) {
+    console.error("Error toggling like:", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
-    try {
-     const postRes = await axios.post(url, {}, {
-        headers: {
-           "Content-Type": "application/json",
-          authToken: token,
-          Authorization: `Bearer ${token}`,
-        }
-      });
-      console.log("Like response:", postRes.data);
-      console.log("Like status toggled successfully");
-      setLiked(!liked);
-      setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
-    } catch (err) {
-      console.error("Error toggling like:", err);
-    }
-  };
+return ( <div className="flex items-center gap-2">
+<button
+onClick={handleLike}
+  disabled={!clickable || loading}
+className="text-2xl focus:outline-none"
+aria-label={liked ? "Unlike" : "Like"}
 
-  return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={toggleLike}
-        className="text-2xl focus:outline-none"
-        aria-label={liked ? "Unlike" : "Like"}
-        disabled={!clickable} // disables pointer events when not clickable
-      >
-        {liked ? "❤️" : "🤍"}
-      </button>
-      <span>{likeCount}</span>
-    </div>
-  );
+>
+{loading ? "⏳" : liked ? "❤️" : "🤍"}</button> <span>{likeCount}</span> </div>
+);
 };
 
 export default LikeButton;

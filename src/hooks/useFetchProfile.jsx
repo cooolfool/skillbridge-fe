@@ -1,46 +1,45 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+import api from "../api/api";
 
 const useFetchProfile = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+const navigate = useNavigate();
+const [user, setUser] = useState(null);
+const [error, setError] = useState(null);
+const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const token = localStorage.getItem("token");
-        if (!token) {
-          navigate("/login");
-          return;
-        }
-        
-        const res = await axios.get(`${baseUrl}/api/user`, {
-          headers: {
-            authToken: localStorage.getItem("token"),
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          },
-        });
-        console.log("Fetched user profile:", res.data);
-        setUser(res.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setError("Session expired. Please login again.");
-        navigate("/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProfile();
-  }, [navigate]);
+useEffect(() => {
+const fetchProfile = async () => {
+try {
+setLoading(true);
+setError(null);
 
-  return { user, loading, error };
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const res = await api.get("/api/user");
+
+    console.log("Fetched user profile:", res.data);
+    setUser(res.data);
+
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+      setError("Failed to load profile");
+    
+
+  } finally {
+    setLoading(false);
+  }
+};
+
+fetchProfile();
+
+}, [navigate]);
+
+return { user, loading, error };
 };
 
 export default useFetchProfile;

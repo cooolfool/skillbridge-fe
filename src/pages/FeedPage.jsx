@@ -5,20 +5,33 @@ import Footer from "../components/FooterApplication";
 import useFetchProfile from "../hooks/useFetchProfile";
 import useFetchPostsForFeed from "../hooks/useFetchPostsForFeed";
 import ProjectCard from "../components/ProjectCard";
+import { useLocation } from "react-router-dom";
 
 const FeedPage = () => {
-  const { posts, loading, error } = useFetchPostsForFeed();
+   const location = useLocation();
+const prefetchedFeed = location.state?.prefetchedFeed;
+
+ const { posts, loading, error } = useFetchPostsForFeed(prefetchedFeed);
   const navigate = useNavigate();
   const { user, loading: profileLoading, error: profileError } = useFetchProfile();
-
-  if (loading || profileLoading) {
+ 
+ if ((loading && !prefetchedFeed) || profileLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-blue-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-indigo-600 border-solid mx-auto mb-4"></div>
-          <p className="text-indigo-600 text-lg font-medium">Loading feed...</p>
-        </div>
-      </div>
+      <div className="p-6 space-y-4 animate-pulse">
+  <div className="h-6 bg-gray-300 rounded w-1/3"></div>
+
+  <div className="border rounded p-4 space-y-3">
+    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+    <div className="h-4 bg-gray-300 rounded w-full"></div>
+    <div className="h-32 bg-gray-300 rounded"></div>
+  </div>
+
+  <div className="border rounded p-4 space-y-3">
+    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+    <div className="h-4 bg-gray-300 rounded w-full"></div>
+    <div className="h-32 bg-gray-300 rounded"></div>
+  </div>
+</div>
     );
   }
 

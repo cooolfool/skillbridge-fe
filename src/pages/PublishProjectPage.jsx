@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/api";
 import Header from "../components/HeaderApplication";
 import Footer from "../components/FooterApplication";
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const PublishProject = () => {
   const navigate = useNavigate();
@@ -21,12 +20,7 @@ const PublishProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${baseUrl}/project`, project, {
-        headers: {
-          authToken: localStorage.getItem("token"),
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await api.post(`/project`, project);
 
       if (res.status === 201 || res.status === 200) {
         navigate("/home");

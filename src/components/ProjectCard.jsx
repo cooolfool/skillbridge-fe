@@ -10,9 +10,13 @@ const ProjectCard = ({ project }) => {
       
       {/* Top-right like button */}
       <div className="absolute top-2 right-2">
-        <LikeButton entityId={project.id}
-    entityType="project"
-    initialCount={project.likesCount || 0} clickable={false} />
+       <LikeButton
+  entityId={project.id}
+  entityType="project"
+  initialCount={project.likesCount || 0}
+  initialLiked={project.likedByCurrentUser}
+  clickable={false}
+/>
       </div>
 
       <Link to={`/project/${project.id}`} className="no-underline hover:no-underline block">
